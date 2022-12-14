@@ -23,11 +23,6 @@ export const Searchbar = prop => {
     // actions.reset()
   };
 
-  // const handleValidate = e => {
-  //   if (e) {
-  //     prop.onValidate(e);
-  //   }
-  // };
 
   return (
     <FormWrapper>
@@ -37,7 +32,6 @@ export const Searchbar = prop => {
         validationSchema={schema}
       >
         {props => {
-          // console.log(props.isSubmitting);
           return (
             <FormStyled autoComplete="off">
               <ButtonStyled

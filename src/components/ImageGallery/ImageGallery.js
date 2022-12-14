@@ -1,22 +1,16 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import React, { Component } from 'react';
 import { UlStyled, LiStyled } from './ImageGallery.styled';
 
 
-export default class ImageGallery extends Component {
-  // state = {
-  //   image: [],
-  // };
-
-  render() {
-    // console.log(this.props.imageList);
+export default function ImageGallery (props) {
+  
     return (
       <UlStyled>
-        {this.props.imageList.map(item => (
+        {props.imageList.map(item => (
           <LiStyled key={item.id}>
             <ImageGalleryItem
               img={item}
-              onClick={this.props.onSelect}
+              onModalOpen={props.onSelect}
             />
           </LiStyled>
         ))}
@@ -24,4 +18,4 @@ export default class ImageGallery extends Component {
       </UlStyled>
     );
   }
-}
+

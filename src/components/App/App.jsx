@@ -2,28 +2,14 @@ import React, { Component } from 'react';
 import { GlobalStyle } from 'components/Common';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
-import Modal from 'react-modal';
 import { BtnLoadMore } from 'components/Button/Button';
 import { fetchApi } from '../Searchbar/fetchApi';
 
-Modal.setAppElement('#root');
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  
-};
 
 export default class App extends Component {
   state = {
     images: [],
     name: '',
-    selectedImg: null,
     page: 1,
     error: false,
     isLoading: false,
@@ -94,18 +80,10 @@ export default class App extends Component {
     }, 300);
   };
 
-  handleSelectImg = url => {
-    this.setState({ selectedImg: url });
-  };
-
   handleLoadMore = () => {
     this.setState(prevState => {
       return { page: prevState.page + 1 };
     });
-  };
-
-  closeModal = () => {
-    this.setState({ selectedImg: null });
   };
 
   handleError = e => {
@@ -113,7 +91,8 @@ export default class App extends Component {
   };
 
   render() {
-    const { error, images, isLoading, selectedImg } = this.state;
+    const { error, images, isLoading } = this.state;
+
     return (
       <div style={{ textAlign: 'center' }}>
         <Searchbar
@@ -121,26 +100,10 @@ export default class App extends Component {
           isLoad={isLoading}
           onValidate={this.handleError}
         />
-        <ImageGallery imageList={images} onSelect={this.handleSelectImg} />
+        <ImageGallery imageList={images} />
         {!this.state.isHidden && <BtnLoadMore onClick={this.handleLoadMore} />}
         {isLoading && <div>Loading...</div>}
         {error && <p>please reload page</p>}
-        <Modal
-          isOpen={selectedImg !== null}
-          style={customStyles}
-          onRequestClose={this.closeModal}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              flexDirection: 'column',
-            }}
-          >
-            <button onClick={this.closeModal}>x</button>
-            <img src={selectedImg} alt="Selected" width={600} />
-          </div>
-        </Modal>
         <GlobalStyle />
       </div>
     );
