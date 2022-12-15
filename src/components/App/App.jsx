@@ -26,10 +26,11 @@ export default function App() {
     return;
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFatch = () => {
     setHidden(true);
     setLoading(true);
-    setTimeout(() => {
+    // setTimeout(() => {
       fetchApi(name, page)
         .then(response => {
           const lastPage=(Math.ceil(response.total / perPage));
@@ -41,9 +42,9 @@ export default function App() {
           setImg([...img, ...response.hits]);
           setHidden(false);
         })
-        .catch(error => setError(true))
+        .catch(() => setError(true))
         .finally(setLoading(false));
-    }, 300);
+    // }, 300);
   };
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export default function App() {
       return;
     }
     handleFatch();
-  }, [name, page]);
+  }, [handleFatch, name, page]);
 
 
   return (
