@@ -26,7 +26,6 @@ export default function App() {
     return;
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFatch = () => {
     setHidden(true);
     setLoading(true);
@@ -42,7 +41,7 @@ export default function App() {
           setImg([...img, ...response.hits]);
           setHidden(false);
         })
-        .catch(() => setError(true))
+        .catch(error => setError(true))
         .finally(setLoading(false));
     // }, 300);
   };
@@ -52,7 +51,8 @@ export default function App() {
       return;
     }
     handleFatch();
-  }, [handleFatch, name, page]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, page]);
 
 
   return (
